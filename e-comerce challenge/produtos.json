@@ -1,0 +1,114 @@
+{
+    "produtos": [
+      {
+        "id": 1,
+        "nome": "Caixa de Presente Floral",
+        "categoria": "caixas",
+        "preco": 25.00,
+        "estoque": 15,
+        "imagem": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400",
+        "descricao": "Caixa decorada com flores artesanais",
+        "destaque": true,
+        "tags": ["floral", "presente", "artesanal"]
+      },
+      {
+        "id": 2,
+        "nome": "Sacola Kraft Personalizada",
+        "categoria": "sacolas",
+        "preco": 12.00,
+        "estoque": 30,
+        "imagem": "https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=400",
+        "descricao": "Sacola de papel kraft com alça de corda",
+        "destaque": true,
+        "tags": ["kraft", "ecológica", "personalizável"]
+      },
+      {
+        "id": 3,
+        "nome": "Kit Tags Decorativas",
+        "categoria": "tags",
+        "preco": 18.00,
+        "estoque": 20,
+        "imagem": "https://images.unsplash.com/photo-1607082349566-187342175e2f?w=400",
+        "descricao": "Conjunto com 10 tags artesanais variadas",
+        "destaque": true,
+        "tags": ["tags", "etiquetas", "kit"]
+      },
+      {
+        "id": 4,
+        "nome": "Caixa Luxo com Laço",
+        "categoria": "caixas",
+        "preco": 45.00,
+        "estoque": 8,
+        "imagem": "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=400",
+        "descricao": "Caixa rígida com acabamento premium",
+        "destaque": false,
+        "tags": ["luxo", "premium", "laço"]
+      },
+      {
+        "id": 5,
+        "nome": "Sacola Colorida Média",
+        "categoria": "sacolas",
+        "preco": 15.00,
+        "estoque": 25,
+        "imagem": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400",
+        "descricao": "Sacola de papel colorido decorada",
+        "destaque": false,
+        "tags": ["colorida", "média", "decorada"]
+      },
+      {
+        "id": 6,
+        "nome": "Cesta Decorativa",
+        "categoria": "embalagens",
+        "preco": 55.00,
+        "estoque": 5,
+        "imagem": "https://th.bing.com/th/id/R.7266325767d493fc2201ca6fe0b88be5?rik=EwOrtgkGkU73Zw&riu=http%3a%2f%2f1.bp.blogspot.com%2f-Z9J7wBvEmtc%2fTb8kASlRtdI%2fAAAAAAAAA-0%2fLYtUfMFKllk%2fs1600%2fCesta%252B005.jpg&ehk=WpXdmHeie2l1ru4VanUK%2bzvvE8yXzv6YjrXycNXk6bo%3d&risl=&pid=ImgRaw&r=0",
+        "descricao": "Cesta de vime com decoração artesanal",
+        "destaque": true,
+        "tags": ["cesta", "vime", "rústica"]
+      },
+      {
+        "id": 7,
+        "nome": "Caixa Coração Pequena",
+        "categoria": "caixas",
+        "preco": 18.00,
+        "estoque": 12,
+        "imagem": "https://images.unsplash.com/photo-158912839283-2b7170eb16c1?w=400",
+        "descricao": "Caixa em formato de coração para presentes especiais",
+        "destaque": false,
+        "tags": ["coração", "pequena", "romântica"]
+      },
+      {
+        "id": 8,
+        "nome": "Sacola Transparente com Fita",
+        "categoria": "sacolas",
+        "preco": 8.00,
+        "estoque": 40,
+        "imagem": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400",
+        "descricao": "Sacola plástica transparente com fita decorativa",
+        "destaque": false,
+        "tags": ["transparente", "fita", "prática"]
+      }
+    ],
+    "categorias": [
+      {
+        "id": "caixas",
+        "nome": "Caixas de Presente",
+        "descricao": "Caixas artesanais para todos os tipos de presentes"
+      },
+      {
+        "id": "sacolas",
+        "nome": "Sacolas Personalizadas",
+        "descricao": "Sacolas decoradas e ecológicas"
+      },
+      {
+        "id": "tags",
+        "nome": "Tags e Etiquetas",
+        "descricao": "Tags decorativas para personalizar seus presentes"
+      },
+      {
+        "id": "embalagens",
+        "nome": "Embalagens Especiais",
+        "descricao": "Embalagens criativas e diferenciadas"
+      }
+    ]
+  }

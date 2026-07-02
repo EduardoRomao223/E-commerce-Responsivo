@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Arte & Mimo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../ArquivosCSS/styles.css">
+    <link rel="stylesheet" href="../ArquivosCSS/admin.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-gift"></i> Arte & Mimo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtos.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrinho.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount" class="cart-badge">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navLogin">
+                        <a class="nav-link" href="login.html">
+                            <button class="btn btn-primary btn-sm px-3">Entrar</button>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown hidden" id="navUser">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> <span id="userName">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="meus-pedidos.html">Meus Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Sair</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item hidden" id="navAdmin">
+                        <a class="nav-link active" href="admin.html">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="h2">
+                        <i class="fas fa-cog me-2"></i>Painel Administrativo
+                    </h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="../index.html">Início</a></li>
+                            <li class="breadcrumb-item active">Administração</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- ABAS -->
+            <ul class="nav nav-tabs mb-4" id="adminTabs">
+                <li class="nav-item">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pedidos">
+                        <i class="fas fa-shopping-bag me-2"></i>Pedidos
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#produtos">
+                        <i class="fas fa-box me-2"></i>Produtos
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#estatisticas">
+                        <i class="fas fa-chart-bar me-2"></i>Estatísticas
+                    </button>
+                </li>
+            </ul>
+
+            <!-- CONTEÚDO DAS ABAS -->
+            <div class="tab-content">
+                <!-- ABA PEDIDOS -->
+                <div class="tab-pane fade show active" id="pedidos">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Buscar pedido..." id="searchAdminOrders">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="filterAdminStatus">
+                                <option value="all">Todos os status</option>
+                                <option value="confirmado">Confirmado</option>
+                                <option value="preparando">Preparando</option>
+                                <option value="enviado">Enviado</option>
+                                <option value="entregue">Entregue</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="filterDate">
+                                <option value="all">Todos os períodos</option>
+                                <option value="today">Hoje</option>
+                                <option value="week">Esta semana</option>
+                                <option value="month">Este mês</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="adminPedidosContainer">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Carregando pedidos...</span>
+                            </div>
+                            <p class="mt-3">Carregando pedidos...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABA PRODUTOS -->
+                <div class="tab-pane fade" id="produtos">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4>Gerenciar Produtos</h4>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProduto">
+                            <i class="fas fa-plus me-2"></i>Novo Produto
+                        </button>
+                    </div>
+
+                    <div class="row" id="adminProdutosContainer">
+                        <div class="col-12 text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Carregando produtos...</span>
+                            </div>
+                            <p class="mt-3">Carregando produtos...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABA ESTATÍSTICAS -->
+                <div class="tab-pane fade" id="estatisticas">
+                    <div class="row">
+                        <div class="col-md-3 mb-4">
+                            <div class="stat-card">
+                                <div class="stat-icon total-vendas">
+                                    <i class="fas fa-shopping-bag"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="totalVendas">0</h3>
+                                    <p>Total de Vendas</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="stat-card">
+                                <div class="stat-icon receita">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="totalReceita">R$ 0</h3>
+                                    <p>Receita Total</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="stat-card">
+                                <div class="stat-icon pedidos-pendentes">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="pedidosPendentes">0</h3>
+                                    <p>Pedidos Pendentes</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-4">
+                            <div class="stat-card">
+                                <div class="stat-icon produtos-ativos">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="produtosAtivos">0</h3>
+                                    <p>Produtos Ativos</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Vendas dos Últimos 7 Dias</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="chartVendas" style="height: 300px;">
+                                        <div class="text-center py-5">
+                                            <p class="text-muted">Gráfico de vendas será exibido aqui</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Produtos Mais Vendidos</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="topProdutos">
+                                        <div class="text-center py-3">
+                                            <p class="text-muted">Carregando...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL PRODUTO -->
+    <div class="modal fade" id="modalProduto" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalProdutoTitle">Adicionar Produto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formProduto">
+                        <input type="hidden" id="produtoId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Nome do Produto *</label>
+                                <input type="text" class="form-control" id="produtoNome" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Categoria *</label>
+                                <select class="form-select" id="produtoCategoria" required>
+                                    <option value="">Selecione</option>
+                                    <option value="caixas">Caixas</option>
+                                    <option value="sacolas">Sacolas</option>
+                                    <option value="tags">Tags</option>
+                                    <option value="embalagens">Embalagens</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Preço *</label>
+                                <input type="number" class="form-control" id="produtoPreco" step="0.01" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Estoque *</label>
+                                <input type="number" class="form-control" id="produtoEstoque" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Imagem URL</label>
+                            <input type="url" class="form-control" id="produtoImagem" placeholder="https://...">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descrição</label>
+                            <textarea class="form-control" id="produtoDescricao" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="produtoDestaque">
+                                <label class="form-check-label" for="produtoDestaque">
+                                    Produto em Destaque
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="salvarProduto()">Salvar Produto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/admin.js"></script>
+    <script type="module" src="../js/admin.js"></script>
+    
+    <script type="module">
+        import { atualizarNavbar, logout, usuarioEstaLogado } from '../js/auth-system.js';
+        
+        // Verificar se é admin
+        const usuario = usuarioEstaLogado();
+        if (!usuario || usuario.email !== 'admin@artemimo.com.br') {
+            alert('Acesso restrito à administração!');
+            window.location.href = '../index.html';
+        }
+        
+        // Atualiza navbar automaticamente
+        atualizarNavbar();
+        
+        // Torna logout global
+        window.logout = logout;
+    </script>
+</body>
+</html>

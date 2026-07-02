@@ -1,0 +1,110 @@
+.pedido-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    border-left: 4px solid #007bff;
+}
+
+.pedido-header {
+    display: flex;
+    justify-content: between;
+    align-items: start;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.pedido-info h5 {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.pedido-meta {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-confirmado { background: #d1ecf1; color: #0c5460; }
+.status-preparando { background: #fff3cd; color: #856404; }
+.status-enviado { background: #d4edda; color: #155724; }
+.status-entregue { background: #e2e3e5; color: #383d41; }
+.status-cancelado { background: #f8d7da; color: #721c24; }
+
+.pedido-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.pedido-item:last-child {
+    border-bottom: none;
+}
+
+.item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 1rem;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-details h6 {
+    margin-bottom: 0.25rem;
+}
+
+.item-price {
+    font-weight: 600;
+    color: #28a745;
+}
+
+.pedido-totals {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.totals-row {
+    display: flex;
+    justify-content: between;
+    margin-bottom: 0.5rem;
+}
+
+.totals-row:last-child {
+    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-top: 1px solid #dee2e6;
+    padding-top: 0.5rem;
+}
+
+.pedido-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 1rem;
+}

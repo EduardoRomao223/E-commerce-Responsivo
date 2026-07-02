@@ -1,0 +1,10 @@
+{
+    "itens": [],
+    "resumo": {
+      "subtotal": 0,
+      "frete": 0,
+      "desconto": 0,
+      "total": 0
+    },
+    "cupomAplicado": null
+  }

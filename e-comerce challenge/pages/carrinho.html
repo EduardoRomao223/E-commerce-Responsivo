@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Arte & Mimo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../ArquivosCSS/styles.css">
+    <link rel="stylesheet" href="../ArquivosCSS/carrinho.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-gift"></i> Arte & Mimo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtos.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="carrinho.html">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navLogin">
+                        <a class="nav-link" href="login.html">
+                            <button class="btn btn-primary btn-sm px-3">Entrar</button>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown hidden" id="navUser">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> <span id="userName">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="meus-pedidos.html">Meus Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Sair</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item hidden" id="navAdmin">
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <h1 class="h2">Meu Carrinho</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <!-- CORREÇÃO: Link corrigido -->
+                            <li class="breadcrumb-item"><a href="../index.html">Início</a></li>
+                            <li class="breadcrumb-item active">Carrinho</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Carrinho Vazio -->
+            <div id="emptyCart" class="d-none">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3 class="mb-3">Seu carrinho está vazio</h3>
+                    <p class="text-muted mb-4">Adicione produtos incríveis ao seu carrinho!</p>
+                    <a href="produtos.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-shopping-bag me-2"></i> Continuar Comprando
+                    </a>
+                </div>
+            </div>
+
+            <!-- Carrinho com Itens -->
+            <div id="cartWithItems" class="d-none"> <!-- Adicionei d-none aqui -->
+                <div class="row">
+                    <!-- Lista de Itens -->
+                    <div class="col-lg-8">
+                        <div class="card shadow-sm">
+                            <div class="card-body p-4" id="cartItemsContainer">
+                                <!-- OS ITENS DO CARRINHO SERÃO CARREGADOS AQUI VIA JAVASCRIPT -->
+                                <div class="text-center py-4">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Carregando carrinho...</span>
+                                    </div>
+                                    <p class="mt-2">Carregando seu carrinho...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cupom de Desconto -->
+                        <div class="card shadow-sm mt-4">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">
+                                    <i class="fas fa-ticket-alt me-2 text-primary"></i> Cupom de Desconto
+                                </h5>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Digite seu cupom">
+                                    <button class="btn btn-primary" type="button">Aplicar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- FECHAMENTO DA COLUNA LG-8 -->
+
+                    <!-- Resumo do Pedido -->
+                    <div class="col-lg-4 mt-4 mt-lg-0">
+                        <div class="summary-card shadow-sm">
+                            <h4 class="mb-4">Resumo do Pedido</h4>
+                            
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Subtotal</span>
+                                <span id="subtotalResumo">R$ 0,00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Frete</span>
+                                <span id="freteResumo">R$ 0,00</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Desconto</span>
+                                <span class="text-success" id="descontoResumo">- R$ 0,00</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-4">
+                                <strong>Total</strong>
+                                <strong class="h5 text-primary" id="totalResumo">R$ 0,00</strong>
+                            </div>
+
+                            <button class="btn btn-primary btn-lg w-100 mb-3" onclick="proceedToCheckout()">
+                                <i class="fas fa-credit-card me-2"></i> Finalizar Compra
+                            </button>
+                            
+                            <a href="produtos.html" class="btn btn-outline-secondary w-100">
+                                <i class="fas fa-shopping-bag me-2"></i> Continuar Comprando
+                            </a>
+
+                            <div class="mt-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="giftWrap">
+                                    <label class="form-check-label small" for="giftWrap">
+                                        Embalar para presente (+ R$ 5,00)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <h6 class="mb-3">Formas de Pagamento</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <i class="fab fa-cc-visa text-muted" style="font-size: 2rem;"></i>
+                                    <i class="fab fa-cc-mastercard text-muted" style="font-size: 2rem;"></i>
+                                    <i class="fab fa-cc-paypal text-muted" style="font-size: 2rem;"></i>
+                                    <i class="fab fa-cc-amazon-pay text-muted" style="font-size: 2rem;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- FECHAMENTO DA COLUNA LG-4 -->
+                </div> <!-- FECHAMENTO DA ROW -->
+            </div> <!-- FECHAMENTO DO cartWithItems -->
+        </div> <!-- FECHAMENTO DO CONTAINER -->
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- ... mesmo footer ... -->
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/carrinho.js"></script>
+    <script type="module">
+    import { atualizarNavbar, logout } from '../js/auth-system.js';
+    
+    // Atualiza navbar automaticamente
+    atualizarNavbar();
+    
+    // Torna logout global
+    window.logout = logout;
+</script>
+
+</body>
+</html> 

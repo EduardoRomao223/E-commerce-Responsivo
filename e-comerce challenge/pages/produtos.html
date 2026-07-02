@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Arte & Mimo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../ArquivosCSS/styles.css">
+    <link rel="stylesheet" href="../ArquivosCSS/produtos.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-gift"></i> Arte & Mimo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="produtos.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrinho.html">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navLogin">
+                        <a class="nav-link" href="login.html">
+                            <button class="btn btn-primary btn-sm px-3">Entrar</button>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown hidden" id="navUser">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> <span id="userName">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="meus-pedidos.html">Meus Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Sair</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item hidden" id="navAdmin">
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="h2">Nossos Produtos</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <!-- CORREÇÃO: Link corrigido para voltar à raiz -->
+                            <li class="breadcrumb-item"><a href="../index.html">Início</a></li>
+                            <li class="breadcrumb-item active">Produtos</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- FILTROS E ORDENAÇÃO - ESSA PARTE ESTAVA FALTANDO! -->
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="d-flex flex-wrap gap-2">
+                        <!-- BOTÕES DE FILTRO QUE ESTAVAM FALTANDO -->
+                        <button class="btn btn-outline-primary filter-btn active" data-category="all">Todos</button>
+                        <button class="btn btn-outline-primary filter-btn" data-category="caixas">Caixas</button>
+                        <button class="btn btn-outline-primary filter-btn" data-category="sacolas">Sacolas</button>
+                        <button class="btn btn-outline-primary filter-btn" data-category="tags">Tags</button>
+                        <button class="btn btn-outline-primary filter-btn" data-category="embalagens">Embalagens</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select" id="sortProducts">
+                        <option value="name">Ordenar por: Nome</option>
+                        <option value="price-low">Preço: Menor para Maior</option>
+                        <option value="price-high">Preço: Maior para Menor</option>
+                        <option value="stock">Mais em Estoque</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- LISTA DE PRODUTOS -->
+            <div class="row" id="productsGrid">
+                <!-- Os produtos serão carregados via JavaScript -->
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Carregando produtos...</span>
+                    </div>
+                    <p class="mt-3">Carregando produtos...</p>
+                </div>
+            </div>
+
+            <!-- PAGINAÇÃO -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Anterior</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Próxima</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-gift"></i> Arte & Mimo</h5>
+                    <p class="text-muted">
+                        Oferecemos produtos artesanais únicos e personalizados para tornar seus presentes ainda mais especiais. 
+                        Cada peça é feita com carinho e dedicação.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Links Rápidos</h5>
+                    <a href="../index.html">Início</a>
+                    <a href="produtos.html">Produtos</a>
+                    <a href="contato.html">Contato</a>
+                    <a href="login.html">Minha Conta</a>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Categorias</h5>
+                    <a href="produtos.html?cat=caixas">Caixas de Presente</a>
+                    <a href="produtos.html?cat=sacolas">Sacolas Personalizadas</a>
+                    <a href="produtos.html?cat=tags">Tags e Etiquetas</a>
+                    <a href="produtos.html?cat=embalagens">Embalagens Especiais</a>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Atendimento</h5>
+                    <div class="mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        <span>(11) 98765-4321</span>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        <span>contato@artemimo.com.br</span>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-clock me-2"></i>
+                        <span>Seg-Sex: 9h às 18h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2025 Arte & Mimo - Todos os direitos reservados</p>
+                <p class="mb-0 small">Desenvolvido com <i class="fas fa-heart text-danger"></i> para você</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/carrinho.js"></script>
+    <script src="../js/produtos.js"></script>
+    <script type="module">
+    import { atualizarNavbar, logout } from '../js/auth-system.js';
+    
+    // Atualiza navbar automaticamente
+    atualizarNavbar();
+    
+    // Torna logout global
+    window.logout = logout;
+    </script>
+    
+
+</body>
+</html>

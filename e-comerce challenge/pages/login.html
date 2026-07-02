@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Arte & Mimo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../ArquivosCSS/styles.css">
+    <link rel="stylesheet" href="../ArquivosCSS/login.css">
+</head>
+<body class="login-page">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-gift"></i> Arte & Mimo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtos.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrinho.html">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navLogin">
+                        <a class="nav-link" href="login.html">
+                            <button class="btn btn-primary btn-sm px-3">Entrar</button>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown hidden" id="navUser">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> <span id="userName">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="meus-pedidos.html">Meus Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Sair</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item hidden" id="navAdmin">
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="login-main">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <!-- Card de Login -->
+                    <div class="login-card">
+                        <div class="login-header text-center mb-4">
+                            <div class="login-icon">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <h1 class="h3 fw-bold">Bem-vindo de volta!</h1>
+                            <p class="text-muted">Faça login na sua conta</p>
+                        </div>
+
+                        <!-- Formulário de Login -->
+                        <form id="loginForm" class="login-form">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                    <input type="email" class="form-control" id="email" 
+                                           placeholder="seu@email.com" required>
+                                </div>
+                                <div class="invalid-feedback">Por favor, digite um e-mail válido.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="senha" class="form-label">Senha</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                    <input type="password" class="form-control" id="senha" 
+                                           placeholder="Sua senha" required>
+                                    <button type="button" class="input-group-text toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="invalid-feedback">Por favor, digite sua senha.</div>
+                            </div>
+
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="lembrar">
+                                    <label class="form-check-label" for="lembrar">
+                                        Lembrar de mim
+                                    </label>
+                                </div>
+                                <a href="#esqueci-senha" class="text-decoration-none" data-bs-toggle="modal">
+                                    Esqueceu a senha?
+                                </a>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                                <i class="fas fa-sign-in-alt me-2"></i> Entrar
+                            </button>
+
+                            <div class="text-center">
+                                <p class="text-muted mb-0">
+                                    Não tem uma conta? 
+                                    <a href="#criar-conta" class="text-decoration-none fw-bold" data-bs-toggle="modal">
+                                        Cadastre-se
+                                    </a>
+                                </p>
+                            </div>
+                        </form>
+
+                        <!-- Divisor -->
+                        <div class="login-divider my-4">
+                            <span class="bg-light px-3 text-muted">ou</span>
+                        </div>
+
+                        <!-- Login Social -->
+                        <div class="social-login">
+                            <button type="button" class="btn btn-outline-secondary w-100 mb-2">
+                                <i class="fab fa-google me-2"></i> Continuar com Google
+                            </button>
+                            <button type="button" class="btn btn-outline-primary w-100 mb-2">
+                                <i class="fab fa-facebook-f me-2"></i> Continuar com Facebook
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Esqueci Senha -->
+    <div class="modal fade" id="esqueci-senha" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-key me-2"></i> Recuperar Senha
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-4">
+                        Digite seu e-mail cadastrado e enviaremos um link para redefinir sua senha.
+                    </p>
+                    <form id="recoveryForm">
+                        <div class="mb-3">
+                            <label for="recoveryEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="recoveryEmail" 
+                                   placeholder="seu@email.com" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="enviarRecuperacao()">
+                        Enviar Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Criar Conta -->
+    <div class="modal fade" id="criar-conta" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-user-plus me-2"></i> Criar Conta
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="regNome" class="form-label">Nome</label>
+                                <input type="text" class="form-control" id="regNome" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="regSobrenome" class="form-label">Sobrenome</label>
+                                <input type="text" class="form-control" id="regSobrenome" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="regEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regSenha" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="regSenha" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regConfirmar" class="form-label">Confirmar Senha</label>
+                            <input type="password" class="form-control" id="regConfirmar" required>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="regTermos" required>
+                            <label class="form-check-label" for="regTermos">
+                                Aceito os <a href="#" class="text-decoration-none">termos de uso</a> e 
+                                <a href="#" class="text-decoration-none">política de privacidade</a>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="criarConta()">
+                        Criar Conta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-gift"></i> Arte & Mimo</h5>
+                    <p class="text-muted">
+                        Oferecemos produtos artesanais únicos e personalizados para tornar seus presentes ainda mais especiais. 
+                        Cada peça é feita com carinho e dedicação.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Links Rápidos</h5>
+                    <a href="../index.html">Início</a>
+                    <a href="produtos.html">Produtos</a>
+                    <a href="contato.html">Contato</a>
+                    <a href="login.html">Minha Conta</a>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Categorias</h5>
+                    <a href="produtos.html?cat=caixas">Caixas de Presente</a>
+                    <a href="produtos.html?cat=sacolas">Sacolas Personalizadas</a>
+                    <a href="produtos.html?cat=tags">Tags e Etiquetas</a>
+                    <a href="produtos.html?cat=embalagens">Embalagens Especiais</a>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Atendimento</h5>
+                    <div class="mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        <span>(11) 98765-4321</span>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        <span>contato@artemimo.com.br</span>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-clock me-2"></i>
+                        <span>Seg-Sex: 9h às 18h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2025 Arte & Mimo - Todos os direitos reservados</p>
+                <p class="mb-0 small">Desenvolvido com <i class="fas fa-heart text-danger"></i> para você</p>
+            </div>
+        </div>
+    </footer>
+
+        <!-- SCRIPTS NO FINAL -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        
+        <script src="../js/carrinho.js"></script>
+    
+        <!-- ✅ SISTEMA DE LOGIN ATUALIZADO -->
+        <script type="module">
+            import { fazerLogin, cadastrarUsuario } from '../js/auth-system.js'
+            
+            // Login com validação do formulário
+            window.fazerLogin = async function(email, senha, lembrar) {
+                try {
+                    const usuario = await fazerLogin(email, senha);
+                    
+                    if (lembrar) {
+                        localStorage.setItem('lembrarLogin', 'true');
+                    }
+                    
+                    showAlert('Login realizado com sucesso!', 'success');
+                    setTimeout(() => {
+                        window.location.href = '../index.html';
+                    }, 1500);
+                    
+                } catch (error) {
+                    showAlert(error.message, 'danger');
+                }
+            }
+            
+            // Cadastro completo
+            window.criarConta = async function() {
+                const nome = document.getElementById('regNome').value;
+                const sobrenome = document.getElementById('regSobrenome').value;
+                const email = document.getElementById('regEmail').value;
+                const senha = document.getElementById('regSenha').value;
+                const confirmar = document.getElementById('regConfirmar').value;
+                
+                // Validações
+                if (senha !== confirmar) {
+                    showAlert('As senhas não coincidem!', 'danger');
+                    return;
+                }
+                
+                if (senha.length < 6) {
+                    showAlert('A senha deve ter pelo menos 6 caracteres', 'warning');
+                    return;
+                }
+                
+                try {
+                    const nomeCompleto = nome + ' ' + sobrenome;
+                    const usuario = await cadastrarUsuario(nomeCompleto, email, senha, '');
+                    
+                    showAlert('Conta criada com sucesso!', 'success');
+                    
+                    // Fecha o modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('criar-conta'));
+                    modal.hide();
+                    
+                    setTimeout(() => {
+                        window.location.href = '../index.html';
+                    }, 2000);
+                    
+                } catch (error) {
+                    showAlert(error.message, 'danger');
+                }
+            }
+    
+            // Mostrar alertas
+            function showAlert(message, type) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
+                alertDiv.style.zIndex = '9999';
+                alertDiv.innerHTML = `
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.body.appendChild(alertDiv);
+                setTimeout(() => alertDiv.remove(), 5000);
+            }
+    
+            // Event listener para o formulário de login
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const senha = document.getElementById('senha').value;
+                const lembrar = document.getElementById('lembrar').checked;
+                window.fazerLogin(email, senha, lembrar);
+            });
+    
+            // Mostrar/ocultar senha
+            document.querySelector('.toggle-password').addEventListener('click', function() {
+                const senhaInput = document.getElementById('senha');
+                const type = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                senhaInput.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+        </script>
+
+    <script type="module">
+    import { atualizarNavbar, logout } from '../js/auth-system.js';
+    
+    // Atualiza navbar automaticamente
+    atualizarNavbar();
+    
+    // Torna logout global
+    window.logout = logout;
+    </script>
+
+</body>
+</html>

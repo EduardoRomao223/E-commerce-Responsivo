@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Diagnóstico de Pedidos</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; background: #f5f5f5; }
+        .test-card { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .warning { color: #ffc107; }
+        pre { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .btn-test { margin: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mb-4">🔍 Diagnóstico do Sistema de Pedidos</h1>
+    
+    <!-- TESTE 1: Conexão Supabase -->
+    <div class="test-card">
+        <h3>1️⃣ Teste de Conexão com Supabase</h3>
+        <button class="btn btn-primary btn-test" onclick="testarConexao()">Testar Conexão</button>
+        <div id="resultado-conexao"></div>
+    </div>
+
+    <!-- TESTE 2: Usuário Logado -->
+    <div class="test-card">
+        <h3>2️⃣ Verificar Usuário Logado</h3>
+        <button class="btn btn-primary btn-test" onclick="verificarUsuario()">Verificar</button>
+        <div id="resultado-usuario"></div>
+    </div>
+
+    <!-- TESTE 3: Buscar Pedidos -->
+    <div class="test-card">
+        <h3>3️⃣ Buscar Pedidos do Banco</h3>
+        <button class="btn btn-primary btn-test" onclick="buscarPedidosDoBanco()">Buscar Pedidos</button>
+        <button class="btn btn-secondary btn-test" onclick="buscarTodosPedidos()">Buscar TODOS os Pedidos</button>
+        <div id="resultado-pedidos"></div>
+    </div>
+
+    <!-- TESTE 4: Criar Pedido de Teste -->
+    <div class="test-card">
+        <h3>4️⃣ Criar Pedido de Teste</h3>
+        <button class="btn btn-success btn-test" onclick="criarPedidoTeste()">Criar Pedido de Teste</button>
+        <div id="resultado-criar"></div>
+    </div>
+
+    <!-- TESTE 5: Verificar Estrutura das Tabelas -->
+    <div class="test-card">
+        <h3>5️⃣ Verificar Estrutura das Tabelas</h3>
+        <button class="btn btn-info btn-test" onclick="verificarTabelas()">Verificar Tabelas</button>
+        <div id="resultado-tabelas"></div>
+    </div>
+
+    <!-- LOGS -->
+    <div class="test-card">
+        <h3>📋 Logs Detalhados</h3>
+        <button class="btn btn-danger btn-sm" onclick="limparLogs()">Limpar Logs</button>
+        <pre id="logs"></pre>
+    </div>
+</div>
+
+<script type="module">
+    import { supabase } from '../js/supabase.js';
+    
+    let logs = [];
+    
+    function log(mensagem, tipo = 'info') {
+        const timestamp = new Date().toLocaleTimeString();
+        const emoji = tipo === 'success' ? '✅' : tipo === 'error' ? '❌' : tipo === 'warning' ? '⚠️' : 'ℹ️';
+        const logEntry = `[${timestamp}] ${emoji} ${mensagem}`;
+        logs.push(logEntry);
+        document.getElementById('logs').textContent = logs.join('\n');
+        console.log(logEntry);
+    }
+    
+    window.limparLogs = function() {
+        logs = [];
+        document.getElementById('logs').textContent = '';
+    }
+    
+    // TESTE 1: Conexão
+    window.testarConexao = async function() {
+        const resultado = document.getElementById('resultado-conexao');
+        resultado.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Testando...';
+        
+        try {
+            log('Testando conexão com Supabase...', 'info');
+            
+            const { data, error } = await supabase
+                .from('usuarios')
+                .select('count')
+                .limit(1);
+            
+            if (error) throw error;
+            
+            resultado.innerHTML = `<div class="alert alert-success mt-3">
+                <strong class="success">✅ Conexão OK!</strong><br>
+                Supabase está funcionando corretamente.
+            </div>`;
+            log('Conexão com Supabase OK', 'success');
+            
+        } catch (error) {
+            resultado.innerHTML = `<div class="alert alert-danger mt-3">
+                <strong class="error">❌ Erro na conexão!</strong><br>
+                ${error.message}
+            </div>`;
+            log(`Erro na conexão: ${error.message}`, 'error');
+        }
+    }
+    
+    // TESTE 2: Usuário
+    window.verificarUsuario = function() {
+        const resultado = document.getElementById('resultado-usuario');
+        log('Verificando usuário logado...', 'info');
+        
+        const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+        
+        if (!usuario) {
+            resultado.innerHTML = `<div class="alert alert-warning mt-3">
+                <strong class="warning">⚠️ Nenhum usuário logado!</strong><br>
+                Você precisa fazer login primeiro.
+            </div>`;
+            log('Nenhum usuário logado', 'warning');
+            return;
+        }
+        
+        resultado.innerHTML = `<div class="alert alert-success mt-3">
+            <strong class="success">✅ Usuário logado!</strong><br>
+            <strong>ID:</strong> ${usuario.id}<br>
+            <strong>Nome:</strong> ${usuario.nome}<br>
+            <strong>Email:</strong> ${usuario.email}
+        </div>`;
+        log(`Usuário logado: ${usuario.nome} (ID: ${usuario.id})`, 'success');
+    }
+    
+    // TESTE 3: Buscar Pedidos
+    window.buscarPedidosDoBanco = async function() {
+        const resultado = document.getElementById('resultado-pedidos');
+        resultado.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Buscando...';
+        
+        try {
+            const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (!usuario) {
+                throw new Error('Faça login primeiro!');
+            }
+            
+            log(`Buscando pedidos do usuário ${usuario.id}...`, 'info');
+            
+            const { data, error } = await supabase
+                .from('pedidos')
+                .select(`
+                    *,
+                    pedido_itens (*)
+                `)
+                .eq('usuario_id', usuario.id)
+                .order('data_pedido', { ascending: false });
+            
+            if (error) throw error;
+            
+            log(`Encontrados ${data.length} pedidos`, data.length > 0 ? 'success' : 'warning');
+            
+            resultado.innerHTML = `<div class="alert alert-info mt-3">
+                <strong>📦 Total de pedidos: ${data.length}</strong><br><br>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            </div>`;
+            
+        } catch (error) {
+            resultado.innerHTML = `<div class="alert alert-danger mt-3">
+                <strong class="error">❌ Erro ao buscar pedidos!</strong><br>
+                ${error.message}
+            </div>`;
+            log(`Erro ao buscar pedidos: ${error.message}`, 'error');
+        }
+    }
+    
+    // TESTE 3B: Buscar TODOS
+    window.buscarTodosPedidos = async function() {
+        const resultado = document.getElementById('resultado-pedidos');
+        resultado.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Buscando TODOS...';
+        
+        try {
+            log('Buscando TODOS os pedidos do sistema...', 'info');
+            
+            const { data, error } = await supabase
+                .from('pedidos')
+                .select(`
+                    *,
+                    pedido_itens (*)
+                `)
+                .order('data_pedido', { ascending: false });
+            
+            if (error) throw error;
+            
+            log(`Total de pedidos no sistema: ${data.length}`, data.length > 0 ? 'success' : 'warning');
+            
+            resultado.innerHTML = `<div class="alert alert-info mt-3">
+                <strong>📦 Total de pedidos no sistema: ${data.length}</strong><br><br>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            </div>`;
+            
+        } catch (error) {
+            resultado.innerHTML = `<div class="alert alert-danger mt-3">
+                <strong class="error">❌ Erro!</strong><br>
+                ${error.message}
+            </div>`;
+            log(`Erro: ${error.message}`, 'error');
+        }
+    }
+    
+    // TESTE 4: Criar Pedido
+    window.criarPedidoTeste = async function() {
+        const resultado = document.getElementById('resultado-criar');
+        resultado.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Criando...';
+        
+        try {
+            const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+            if (!usuario) {
+                throw new Error('Faça login primeiro!');
+            }
+            
+            log('Criando pedido de teste...', 'info');
+            
+            const pedidoTeste = {
+                usuario_id: usuario.id,
+                numero_pedido: 'TESTE-' + Date.now(),
+                subtotal: 100.00,
+                frete: 12.50,
+                total: 112.50,
+                endereco_entrega: {
+                    cep: '01234-567',
+                    rua: 'Rua Teste',
+                    numero: '123',
+                    bairro: 'Centro',
+                    cidade: 'São Paulo',
+                    estado: 'SP',
+                    telefone: '(11) 99999-9999'
+                },
+                metodo_pagamento: 'pix',
+                status: 'confirmado'
+            };
+            
+            const { data: pedido, error } = await supabase
+                .from('pedidos')
+                .insert([pedidoTeste])
+                .select();
+            
+            if (error) throw error;
+            
+            log(`Pedido criado: ${pedido[0].numero_pedido}`, 'success');
+            
+            // Criar itens
+            const itens = [{
+                pedido_id: pedido[0].id,
+                produto_id: 1,
+                nome_produto: 'Produto Teste',
+                preco: 50.00,
+                quantidade: 2,
+                subtotal: 100.00
+            }];
+            
+            const { error: errorItens } = await supabase
+                .from('pedido_itens')
+                .insert(itens);
+            
+            if (errorItens) throw errorItens;
+            
+            resultado.innerHTML = `<div class="alert alert-success mt-3">
+                <strong class="success">✅ Pedido de teste criado!</strong><br>
+                <strong>Número:</strong> ${pedido[0].numero_pedido}<br>
+                <strong>ID:</strong> ${pedido[0].id}<br>
+                <strong>Total:</strong> R$ 112,50
+            </div>`;
+            log('Pedido de teste criado com sucesso!', 'success');
+            
+        } catch (error) {
+            resultado.innerHTML = `<div class="alert alert-danger mt-3">
+                <strong class="error">❌ Erro ao criar pedido!</strong><br>
+                ${error.message}
+            </div>`;
+            log(`Erro ao criar pedido: ${error.message}`, 'error');
+        }
+    }
+    
+    // TESTE 5: Verificar Tabelas
+    window.verificarTabelas = async function() {
+        const resultado = document.getElementById('resultado-tabelas');
+        resultado.innerHTML = '<div class="spinner-border spinner-border-sm"></div> Verificando...';
+        
+        try {
+            log('Verificando estrutura das tabelas...', 'info');
+            
+            // Verificar tabela pedidos
+            const { data: pedidos, error: erroPedidos } = await supabase
+                .from('pedidos')
+                .select('*')
+                .limit(1);
+            
+            // Verificar tabela pedido_itens
+            const { data: itens, error: erroItens } = await supabase
+                .from('pedido_itens')
+                .select('*')
+                .limit(1);
+            
+            const tabelaPedidos = erroPedidos ? 
+                `❌ ERRO: ${erroPedidos.message}` : 
+                `✅ OK (Colunas: ${Object.keys(pedidos[0] || {}).join(', ')})`;
+            
+            const tabelaItens = erroItens ? 
+                `❌ ERRO: ${erroItens.message}` : 
+                `✅ OK (Colunas: ${Object.keys(itens[0] || {}).join(', ')})`;
+            
+            resultado.innerHTML = `<div class="alert alert-info mt-3">
+                <strong>Tabela 'pedidos':</strong> ${tabelaPedidos}<br>
+                <strong>Tabela 'pedido_itens':</strong> ${tabelaItens}
+            </div>`;
+            
+            log('Verificação de tabelas concluída', 'success');
+            
+        } catch (error) {
+            resultado.innerHTML = `<div class="alert alert-danger mt-3">
+                <strong class="error">❌ Erro!</strong><br>
+                ${error.message}
+            </div>`;
+            log(`Erro: ${error.message}`, 'error');
+        }
+    }
+</script>
+
+</body>
+</html>

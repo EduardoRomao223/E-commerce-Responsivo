@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Arte & Mimo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../ArquivosCSS/styles.css">
+    <link rel="stylesheet" href="../ArquivosCSS/checkout.css">
+</head>
+<body class="checkout-page">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-gift"></i> Arte & Mimo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtos.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrinho.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount" class="cart-badge">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navLogin">
+                        <a class="nav-link" href="login.html">
+                            <button class="btn btn-primary btn-sm px-3">Entrar</button>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown hidden" id="navUser">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> <span id="userName">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="meus-pedidos.html">Meus Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h1 class="h2">Finalizar Compra</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="../index.html">Início</a></li>
+                            <li class="breadcrumb-item"><a href="carrinho.html">Carrinho</a></li>
+                            <li class="breadcrumb-item active">Checkout</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- ETAPAS DO CHECKOUT -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="checkout-step step-active">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h5 class="mb-1">Endereço de Entrega</h5>
+                            <p class="text-muted mb-0">Informe onde receber seu pedido</p>
+                        </div>
+                    </div>
+                    <div class="checkout-step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h5 class="mb-1">Pagamento</h5>
+                            <p class="text-muted mb-0">Escolha como pagar</p>
+                        </div>
+                    </div>
+                    <div class="checkout-step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h5 class="mb-1">Confirmação</h5>
+                            <p class="text-muted mb-0">Revise e finalize</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- FORMULÁRIO -->
+                <div class="col-lg-8">
+                    <!-- ENDEREÇO DE ENTREGA -->
+                    <div class="checkout-card" id="step1">
+                        <h4 class="mb-4">
+                            <i class="fas fa-truck me-2 text-primary"></i>
+                            Endereço de Entrega
+                        </h4>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">CEP *</label>
+                                <input type="text" class="form-control" id="cep" placeholder="00000-000" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Número *</label>
+                                <input type="text" class="form-control" id="numero" placeholder="123" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">Rua *</label>
+                                <input type="text" class="form-control" id="rua" placeholder="Rua das Flores" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="complemento" placeholder="Apto 101">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Bairro *</label>
+                                <input type="text" class="form-control" id="bairro" placeholder="Centro" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Cidade *</label>
+                                <input type="text" class="form-control" id="cidade" placeholder="São Paulo" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Estado *</label>
+                                <select class="form-select" id="estado" required>
+                                    <option value="">Selecione</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <!-- Outros estados -->
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Telefone para Contato *</label>
+                                <input type="tel" class="form-control" id="telefoneContato" placeholder="(11) 99999-9999" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MÉTODO DE PAGAMENTO -->
+                    <div class="checkout-card hidden" id="step2">
+                        <h4 class="mb-4">
+                            <i class="fas fa-credit-card me-2 text-primary"></i>
+                            Método de Pagamento
+                        </h4>
+
+                        <div class="payment-method" data-method="cartao">
+                            <div class="d-flex align-items-center">
+                                <i class="payment-icon fas fa-credit-card"></i>
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-1">Cartão de Crédito</h5>
+                                    <p class="text-muted mb-0">Parcelamento em até 12x</p>
+                                </div>
+                                <input type="radio" name="paymentMethod" class="form-check-input" value="cartao">
+                            </div>
+
+                            <!-- Formulário do Cartão (aparece quando selecionado) -->
+                            <div class="payment-details mt-3 hidden">
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label">Número do Cartão *</label>
+                                        <input type="text" class="form-control" placeholder="0000 0000 0000 0000">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Validade *</label>
+                                        <input type="text" class="form-control" placeholder="MM/AA">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">CVV *</label>
+                                        <input type="text" class="form-control" placeholder="000">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label">Nome no Cartão *</label>
+                                        <input type="text" class="form-control" placeholder="Como está no cartão">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Parcelas</label>
+                                        <select class="form-select">
+                                            <option>1x R$ 0,00</option>
+                                            <option>2x R$ 0,00</option>
+                                            <option>3x R$ 0,00</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-method" data-method="pix">
+                            <div class="d-flex align-items-center">
+                                <i class="payment-icon fas fa-qrcode"></i>
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-1">PIX</h5>
+                                    <p class="text-muted mb-0">Pagamento instantâneo</p>
+                                </div>
+                                <input type="radio" name="paymentMethod" class="form-check-input" value="pix">
+                            </div>
+                        </div>
+
+                        <div class="payment-method" data-method="boleto">
+                            <div class="d-flex align-items-center">
+                                <i class="payment-icon fas fa-barcode"></i>
+                                <div class="flex-grow-1">
+                                    <h5 class="mb-1">Boleto Bancário</h5>
+                                    <p class="text-muted mb-0">Pagamento em até 3 dias úteis</p>
+                                </div>
+                                <input type="radio" name="paymentMethod" class="form-check-input" value="boleto">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONFIRMAÇÃO -->
+                    <div class="checkout-card hidden" id="step3">
+                        <h4 class="mb-4">
+                            <i class="fas fa-check-circle me-2 text-success"></i>
+                            Confirmação do Pedido
+                        </h4>
+
+                        <div class="alert alert-success">
+                            <h5><i class="fas fa-check me-2"></i>Pedido Confirmado!</h5>
+                            <p class="mb-0">Seu pedido foi realizado com sucesso. Número do pedido: <strong id="numeroPedido">AM000001</strong></p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Resumo do Pedido:</h6>
+                                <div id="resumoPedidoConfirmacao"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Endereço de Entrega:</h6>
+                                <div id="enderecoConfirmacao"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BOTÕES DE NAVEGAÇÃO -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <button class="btn btn-secondary" id="btnVoltar" onclick="voltarEtapa()">
+                            <i class="fas fa-arrow-left me-2"></i>Voltar
+                        </button>
+                        <button class="btn btn-primary" id="btnContinuar" onclick="avancarEtapa()">
+                            Continuar <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                        <button class="btn btn-success hidden" id="btnFinalizar" onclick="finalizarPedido()">
+                            <i class="fas fa-check me-2"></i>Finalizar Pedido
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RESUMO DO PEDIDO -->
+                <div class="col-lg-4">
+                    <div class="checkout-card">
+                        <h4 class="mb-4">Resumo do Pedido</h4>
+                        
+                        <div id="resumoItens">
+                            <!-- Itens serão carregados via JavaScript -->
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span id="resumoSubtotal">R$ 0,00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Frete</span>
+                            <span id="resumoFrete">R$ 0,00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Desconto</span>
+                            <span class="text-success" id="resumoDesconto">- R$ 0,00</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <strong>Total</strong>
+                            <strong class="h5 text-primary" id="resumoTotal">R$ 0,00</strong>
+                        </div>
+
+                        <div class="security-badges">
+                            <div class="security-badge">
+                                <i class="fas fa-lock"></i>
+                                <div>Site Seguro</div>
+                            </div>
+                            <div class="security-badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>Dados Protegidos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Footer igual às outras páginas -->
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/checkout.js"></script>
+    <script type="module">
+        import { usuarioEstaLogado, logout } from '../js/auth-system.js';
+        
+        // Verifica login e atualiza navbar
+        const usuario = usuarioEstaLogado();
+        if (usuario) {
+            document.getElementById('navLogin').classList.add('hidden');
+            document.getElementById('navUser').classList.remove('hidden');
+            document.getElementById('userName').textContent = usuario.nome.split(' ')[0];
+        }
+        
+        window.logout = logout;
+    </script>
+</body>
+</html>

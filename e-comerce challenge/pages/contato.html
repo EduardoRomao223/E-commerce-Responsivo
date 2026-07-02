@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Arte & Mimo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../ArquivosCSS/styles.css">
+    <link rel="stylesheet" href="../ArquivosCSS/contato.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-gift"></i> Arte & Mimo
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtos.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contato.html">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrinho.html">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="navLogin">
+                        <a class="nav-link" href="login.html">
+                            <button class="btn btn-primary btn-sm px-3">Entrar</button>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown hidden" id="navUser">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> <span id="userName">Usuário</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="meus-pedidos.html">Meus Pedidos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">Sair</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item hidden" id="navAdmin">
+                        <a class="nav-link" href="admin.html">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h1 class="display-4 fw-bold text-primary mb-3">Entre em Contato</h1>
+                    <p class="lead text-muted">Estamos aqui para ajudar! Envie sua mensagem ou fale conosco diretamente</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Informações de Contato -->
+                <div class="col-lg-4 mb-5">
+                    <div class="contact-info-card">
+                        <h3 class="mb-4">
+                            <i class="fas fa-info-circle text-primary me-2"></i>
+                            Informações
+                        </h3>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt" style="width: 1%;"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Endereço</h5>
+                                <p class="text-muted mb-0">
+                                    Rua das Flores, 123<br>
+                                    Jardim Primavera<br>
+                                    São Paulo - SP<br>
+                                    CEP: 01234-567
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Telefone</h5>
+                                <p class="text-muted mb-0">
+                                    (11) 98765-4321<br>
+                                    (11) 3456-7890
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>E-mail</h5>
+                                <p class="text-muted mb-0">
+                                    contato@artemimo.com.br<br>
+                                    vendas@artemimo.com.br
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Horário de Atendimento</h5>
+                                <p class="text-muted mb-0">
+                                    Segunda a Sexta: 9h às 18h<br>
+                                    Sábado: 9h às 13h<br>
+                                    Domingo: Fechado
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Redes Sociais -->
+                        <div class="contact-social mt-4">
+                            <h5 class="mb-3">Siga-nos</h5>
+                            <div class="social-links">
+                                <a href="#" class="social-link facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-link instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-link whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="social-link pinterest">
+                                    <i class="fab fa-pinterest"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulário de Contato -->
+                <div class="col-lg-8">
+                    <div class="contact-form-card">
+                        <h3 class="mb-4">
+                            <i class="fas fa-paper-plane text-primary me-2"></i>
+                            Envie sua Mensagem
+                        </h3>
+                        
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nome" class="form-label">Nome Completo *</label>
+                                    <input type="text" class="form-control" id="nome" placeholder="Seu nome completo" required>
+                                    <div class="invalid-feedback">Por favor, digite seu nome.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">E-mail *</label>
+                                    <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+                                    <div class="invalid-feedback">Por favor, digite um e-mail válido.</div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="telefone" class="form-label">Telefone</label>
+                                    <input type="tel" class="form-control" id="telefone" placeholder="(11) 99999-9999">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="assunto" class="form-label">Assunto *</label>
+                                    <select class="form-select" id="assunto" required>
+                                        <option value="">Selecione o assunto</option>
+                                        <option value="duvida">Dúvida sobre produto</option>
+                                        <option value="orcamento">Orçamento personalizado</option>
+                                        <option value="atacado">Pedido em atacado</option>
+                                        <option value="reclamacao">Reclamação</option>
+                                        <option value="elogio">Elogio/Sugestão</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                    <div class="invalid-feedback">Por favor, selecione um assunto.</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="mensagem" class="form-label">Mensagem *</label>
+                                <textarea class="form-control" id="mensagem" rows="6" placeholder="Escreva sua mensagem aqui..." required></textarea>
+                                <div class="invalid-feedback">Por favor, digite sua mensagem.</div>
+                                <div class="form-text">Máximo de 500 caracteres</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="newsletter">
+                                    <label class="form-check-label" for="newsletter">
+                                        Desejo receber novidades e promoções por e-mail
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="reset" class="btn btn-outline-secondary btn-lg px-4">
+                                    <i class="fas fa-eraser me-2"></i> Limpar
+                                </button>
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="fas fa-paper-plane me-2"></i> Enviar Mensagem
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mapa -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="map-card">
+                        <h3 class="mb-4">
+                            <i class="fas fa-map-marked-alt text-primary me-2"></i>
+                            Onde Estamos
+                        </h3>
+                        <div class="map-container">
+                            <!-- Mapa do Google Maps (placeholder) -->
+                            <div class="map-placeholder">
+                                <div class="map-content">
+                                    <i class="fas fa-map-marker-alt fa-3x text-primary mb-3"></i>
+                                    <h5>Localização</h5>
+                                    <p class="text-muted">Rua das Flores, 123 - São Paulo, SP</p>
+                                    <a href="https://maps.google.com" target="_blank" class="btn btn-outline-primary">
+                                        <i class="fas fa-external-link-alt me-2"></i> Abrir no Google Maps
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5><i class="fas fa-gift"></i> Arte & Mimo</h5>
+                    <p class="text-muted">
+                        Oferecemos produtos artesanais únicos e personalizados para tornar seus presentes ainda mais especiais. 
+                        Cada peça é feita com carinho e dedicação.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Links Rápidos</h5>
+                    <a href="../index.html">Início</a>
+                    <a href="produtos.html">Produtos</a>
+                    <a href="contato.html">Contato</a>
+                    <a href="login.html">Minha Conta</a>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Categorias</h5>
+                    <a href="produtos.html?cat=caixas">Caixas de Presente</a>
+                    <a href="produtos.html?cat=sacolas">Sacolas Personalizadas</a>
+                    <a href="produtos.html?cat=tags">Tags e Etiquetas</a>
+                    <a href="produtos.html?cat=embalagens">Embalagens Especiais</a>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Atendimento</h5>
+                    <div class="mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        <span>(11) 98765-4321</span>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        <span>contato@artemimo.com.br</span>
+                    </div>
+                    <div class="mb-2">
+                        <i class="fas fa-clock me-2"></i>
+                        <span>Seg-Sex: 9h às 18h</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2025 Arte & Mimo - Todos os direitos reservados</p>
+                <p class="mb-0 small">Desenvolvido com <i class="fas fa-heart text-danger"></i> para você</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS NO FINAL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/carrinho.js"></script>
+    <script type="module">
+        import { atualizarNavbar, logout } from '../js/auth-system.js';
+        
+        // Atualiza navbar automaticamente
+        atualizarNavbar();
+        
+        // Torna logout global
+        window.logout = logout;
+    </script>
+    
+</body>
+</html>
